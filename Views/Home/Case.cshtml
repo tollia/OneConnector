@@ -1,0 +1,68 @@
+﻿@model HomeController.CaseModel
+@{
+    ViewData["Title"] = "Case Details";
+}
+
+<h3>Case Details</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Create Date</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Company</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.CaseProperties.Status.Value</td>
+            <td>@Model.CaseProperties.CreateDate.Value</td>
+            <td>@Model.CaseProperties.Subject.Value</td>
+            <td>@Model.CaseProperties.Company.Value</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Sub Items</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subItem in Model.SubItems.Items)
+        {
+            var item = subItem.ItemData.ItemDetails;
+            @if (item != null)
+            {
+                <tr>
+                    <td><b>Subject</b></td>
+                    <td>
+                        <b>@item.Subject.Value</b>
+                        @if (@item.ContentClass.Value == "Document")
+                        {
+                            <a class="float-right" asp-controller="Home" asp-action="GetDocument" asp-route-documentId="@item.ItemID.Value"><i class="fas fa-eye"></i></a>
+                        }
+                    </td>
+                </tr>
+                <tr><td>ContentClass</td><td>@item.ContentClass.Value</td></tr>
+                <tr><td>Company</td><td>@item.Company.Value</td></tr>
+                <tr><td>UID</td><td>@item.UID.Value</td></tr>
+                <tr><td>Modified</td><td>@item.Modified.Value</td></tr>
+                <tr><td>CreateDate</td><td>@item.CreateDate.Value</td></tr>
+                <tr><td>ItemID</td><td>@item.ItemID.Value</td></tr>
+                <tr><td>ModifiedBy</td><td>@item.ModifiedBy.Value</td></tr>
+                <tr><td>Status</td><td>@item.Status.Value</td></tr>
+                <tr><td>Author</td><td>@item.Author.Value</td></tr>
+                <tr><td>Creator</td><td>@item.Creator.Value</td></tr>
+                <tr><td>DocCategory</td><td>@item.DocCategory.Value</td></tr>
+                <tr><td>DocType</td><td>@item.DocType.Value</td></tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+

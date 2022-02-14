@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Add Document";
+    <h3>Add Document to Case</h3>
+}
+
+<form method="post" id="newForm" enctype="multipart/form-data">
+    <div class="mb-2 row">
+        <label for="staticCaseNumber" class="col-sm-2 col-form-label">CaseNumber</label>
+        <div class="col-sm-10">
+            <input name="CaseNumber" type="text" class="form-control" id="staticCaseNumber" value="@ViewBag.CaseNumber">
+        </div>
+    </div>
+    <div class="mb-2 row">
+        <label for="staticDocumentNumber" class="col-sm-2 col-form-label">DocumentNumber</label>
+        <div class="col-sm-10">
+            <input name="DocumentNumber" type="text" class="form-control" id="staticDocumentNumber" value="">
+        </div>
+    </div>
+    <div id="files">
+        <div class="mb-2 row">
+            <label class="col-sm-2 col-form-label">
+                New Documents
+            </label>
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary" id="addFile">+</button>
+            </div>
+        </div>
+
+        <div class="mb-2 row" id="fileTemplate">
+            <label class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input name="Files" type="file" class="form-control">
+                    <div class="d-none input-group-append">
+                        <button type="button" class="input-group-text bg-danger text-white delete">X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary float-end">Vista</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function () {
+            $('#addFile').click(function () {
+                var newFileDiv = $('<div/>', {
+                    class: "mb-2 row deletable",
+                    html: $('#fileTemplate').clone().html()
+                });
+                newFileDiv.find('.d-none').removeClass('d-none');
+                $('#files').append(newFileDiv);
+                $('.delete').click(function (event) {
+                    $(this).closest('.deletable').remove();
+                });
+            });
+        });
+        //]]>
+</script>

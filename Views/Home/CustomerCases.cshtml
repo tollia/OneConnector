@@ -1,0 +1,32 @@
+﻿@model HomeController.CustomerCasesModel
+@{
+    ViewData["Title"] = $"Customer Cases for {Model.IdNumber}";
+    <h3>Customer Cases for @Model.IdNumber</h3>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Category</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CustomerCases.Items)
+        {
+            <tr>
+                <td>@item.Status.Value</td>
+                <td>@item.CategoryName.Value</td>
+                <td>@item.Subject.Value</td>
+                <td>
+                    <a class="float-right" asp-controller="Home" asp-action="Case" asp-route-caseNumber="@item.UID.Value"><i class="fas fa-eye"></i></a>
+                    <a class="mr-2 float-right" asp-controller="Home" asp-action="AddDocument" asp-route-caseNumber="@item.UID.Value"><i class="fas fa-plus-square"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
